@@ -1,0 +1,5 @@
+{
+  "name": "SubTracker",
+  "description": "A comprehensive subscription tracking application to manage recurring payments, analyze spending, and monitor renewal dates.",
+  "requestFramePermissions": []
+}
