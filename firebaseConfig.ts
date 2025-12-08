@@ -14,12 +14,12 @@ import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   // PODMIEŃ PONIŻSZE WARTOŚCI NA SWOJE Z KONSOLI FIREBASE
-  apiKey: "AIzaSyD-PLACEHOLDER-KEY-ZMIEN-MNIE",
-  authDomain: "twoj-projekt.firebaseapp.com",
-  projectId: "twoj-projekt",
-  storageBucket: "twoj-projekt.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef"
+  apiKey: "AIzaSyCVsTU44jdphe9GWOl2KNLbpEbRa6JjHXY",
+  authDomain: "subtracker-app-2e596.firebaseapp.com",
+  projectId: "subtracker-app-2e596",
+  storageBucket: "subtracker-app-2e596.firebasestorage.app",
+  messagingSenderId: "130705267576",
+  appId: "1:130705267576:web:ab5e7da49018c9c77d868d"
 };
 
 // Inicjalizacja Firebase
