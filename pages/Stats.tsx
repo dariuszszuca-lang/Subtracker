@@ -1,6 +1,7 @@
+
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { mockFirestore } from '../services/mockFirebase';
+import { dbService } from '../services/firebaseService';
 import { Subscription, CATEGORIES } from '../types';
 import { convertToPLN, getMonthlyCost, formatCurrency } from '../utils/helpers';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis } from 'recharts';
@@ -11,7 +12,7 @@ const Stats: React.FC = () => {
   
   useEffect(() => {
     if (user) {
-      mockFirestore.getSubscriptions(user.uid).then(data => setSubs(data));
+      dbService.getSubscriptions(user.uid).then(data => setSubs(data));
     }
   }, [user]);
 

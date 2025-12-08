@@ -1,7 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { mockFirestore } from '../services/mockFirebase';
+import { dbService } from '../services/firebaseService';
 import { CATEGORIES, CYCLES, STATUSES, Subscription } from '../types';
 import { ArrowLeft, Trash2, Save, Loader2 } from 'lucide-react';
 
@@ -29,17 +30,17 @@ const AddEditSubscription: React.FC = () => {
 
   useEffect(() => {
     if (isEdit && user && id) {
-      mockFirestore.getSubscriptions(user.uid).then(subs => {
-        const sub = subs.find(s => s.id === id);
+      dbService.getSubscription(user.uid, id).then(sub => {
         if (sub) {
           setFormData({
             ...sub,
-            // Format input date needs YYYY-MM-DD
             startDate: sub.startDate.split('T')[0] 
           });
         }
         setFetching(false);
       });
+    } else {
+      setFetching(false);
     }
   }, [isEdit, user, id]);
 
@@ -58,9 +59,9 @@ const AddEditSubscription: React.FC = () => {
 
     try {
       if (isEdit && id) {
-        await mockFirestore.updateSubscription(id, formData);
+        await dbService.updateSubscription(user.uid, id, formData);
       } else {
-        await mockFirestore.addSubscription(user.uid, formData as any);
+        await dbService.addSubscription(user.uid, formData as any);
       }
       navigate('/subscriptions');
     } catch (error) {
@@ -72,9 +73,10 @@ const AddEditSubscription: React.FC = () => {
   };
 
   const handleDelete = async () => {
+    if (!user) return;
     if (confirm('Czy na pewno chcesz usunąć tę subskrypcję?')) {
       if (id) {
-        await mockFirestore.deleteSubscription(id);
+        await dbService.deleteSubscription(user.uid, id);
         navigate('/subscriptions');
       }
     }

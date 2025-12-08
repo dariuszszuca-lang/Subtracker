@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { mockAuth } from '../services/mockFirebase';
-import { CheckCircle2, AlertCircle } from 'lucide-react';
+import { auth, db } from '../firebaseConfig';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
+import { AlertCircle } from 'lucide-react';
 
 const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
   const [email, setEmail] = useState('');
@@ -10,7 +12,6 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -18,17 +19,55 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
     setError('');
     setIsLoading(true);
 
+    if (!auth) {
+      setError("Błąd konfiguracji Firebase. Sprawdź plik firebaseConfig.ts.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      let user;
       if (isRegister) {
-        user = await mockAuth.register(email, password, name);
+        // Rejestracja
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Aktualizacja profilu Auth
+        await updateProfile(user, {
+          displayName: name
+        });
+
+        // Utworzenie dokumentu w Firestore
+        if (db) {
+          await setDoc(doc(db, 'users', user.uid), {
+            uid: user.uid,
+            email: user.email,
+            displayName: name,
+            currency: 'PLN',
+            createdAt: Date.now()
+          });
+        }
+
       } else {
-        user = await mockAuth.login(email, password);
+        // Logowanie
+        await signInWithEmailAndPassword(auth, email, password);
       }
-      login(user);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Wystąpił błąd');
+      console.error("Auth error:", err);
+      let msg = 'Wystąpił błąd.';
+      
+      // Tłumaczenie kodów błędów Firebase
+      switch (err.code) {
+        case 'auth/email-already-in-use': msg = 'Ten email jest już zajęty.'; break;
+        case 'auth/invalid-credential': msg = 'Błędny email lub hasło.'; break;
+        case 'auth/user-not-found': msg = 'Nie znaleziono użytkownika.'; break;
+        case 'auth/wrong-password': msg = 'Błędne hasło.'; break;
+        case 'auth/weak-password': msg = 'Hasło jest za słabe (min. 6 znaków).'; break;
+        case 'auth/invalid-api-key': msg = 'Niepoprawny klucz API w firebaseConfig.ts.'; break;
+        case 'auth/network-request-failed': msg = 'Błąd sieci. Sprawdź połączenie.'; break;
+        default: msg = `Błąd: ${err.message}`;
+      }
+      setError(msg);
     } finally {
       setIsLoading(false);
     }
@@ -50,8 +89,8 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
           </h2>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center space-x-2 text-red-400 text-sm">
-              <AlertCircle size={16} />
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start space-x-2 text-red-400 text-sm">
+              <AlertCircle size={16} className="mt-0.5 shrink-0" />
               <span>{error}</span>
             </div>
           )}

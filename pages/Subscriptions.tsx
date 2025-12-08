@@ -1,6 +1,7 @@
+
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { mockFirestore } from '../services/mockFirebase';
+import { dbService } from '../services/firebaseService';
 import { Subscription, CATEGORIES, STATUSES } from '../types';
 import { calculateNextPayment, formatCurrency, getDaysUntil, formatDate } from '../utils/helpers';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,7 +19,7 @@ const Subscriptions: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      mockFirestore.getSubscriptions(user.uid).then(data => {
+      dbService.getSubscriptions(user.uid).then(data => {
         const processed = data.map(s => ({
             ...s,
             nextPayment: calculateNextPayment(s.startDate, s.cycle).toISOString()

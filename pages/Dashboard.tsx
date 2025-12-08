@@ -1,6 +1,7 @@
+
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { mockFirestore } from '../services/mockFirebase';
+import { dbService } from '../services/firebaseService';
 import { Subscription } from '../types';
 import { calculateNextPayment, convertToPLN, getMonthlyCost, getYearlyCost, formatCurrency, getDaysUntil, formatDate } from '../utils/helpers';
 import { TrendingUp, Calendar, CreditCard, ArrowRight } from 'lucide-react';
@@ -29,9 +30,9 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      mockFirestore.getSubscriptions(user.uid)
+      dbService.getSubscriptions(user.uid)
         .then(data => {
-          // Recalculate nextPayment to be safe on load
+          // Recalculate nextPayment
           const updated = data.map(s => ({
             ...s,
             nextPayment: calculateNextPayment(s.startDate, s.cycle).toISOString()
