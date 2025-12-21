@@ -577,93 +577,135 @@ color: white;
 
         <div class="z-10 max-w-7xl mr-auto ml-auto pr-6 pl-6 relative">
             <div class="text-center mb-16">
-                <span class="font-medium tracking-wide text-sm uppercase mb-3 block text-[#6366F1]">Prosty Cennik</span>
-                <h2 class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-4">Wybierz plan dla siebie.</h2>
-                <p class="text-white/50 text-lg">30-dniowa gwarancja zwrotu pieniędzy.</p>
+                <span class="font-medium tracking-wide text-sm uppercase mb-3 block text-[#6366F1]">Jednorazowa opłata</span>
+                <h2 class="text-4xl md:text-5xl font-medium text-white tracking-tight mb-4">Płacisz raz. Korzystasz bez limitu.</h2>
+                <p class="text-white/50 text-lg">Pełna aplikacja + rok obsługi, poprawek i aktualizacji w cenie.</p>
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8 items-start max-w-5xl mx-auto">
-                
-                <!-- Free -->
-                <div class="glass-panel p-8 rounded-2xl border border-white/10 flex flex-col hover:border-white/20 transition-all">
+
+                <!-- Early Bird -->
+                <div class="glass-panel p-8 rounded-2xl border border-green-500/30 flex flex-col hover:border-green-500/50 transition-all relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-green-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wide">
+                        Limitowana
+                    </div>
                     <div class="mb-4">
-                        <h3 class="text-xl font-medium text-white">Starter</h3>
-                        <p class="text-white/50 text-sm mt-1">Dla początkujących.</p>
+                        <h3 class="text-xl font-medium text-white">Early Bird</h3>
+                        <p class="text-white/50 text-sm mt-1">Dla pierwszych 50 osób.</p>
                     </div>
-                    <div class="mb-8 flex items-baseline gap-2">
-                        <span class="text-4xl font-semibold text-white">0 zł</span>
-                        <span class="text-white/40 text-lg">/ mc</span>
+                    <div class="mb-2 flex items-baseline gap-2">
+                        <span class="text-4xl font-semibold text-white">299 zł</span>
+                        <span class="text-white/40 text-sm line-through">399 zł</span>
                     </div>
+                    <p class="text-green-400 text-xs mb-6">Oszczędzasz 100 zł</p>
                     <ul class="space-y-4 mb-8 flex-1">
                         <li class="flex items-center gap-3 text-sm text-white/70">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Do 5 subskrypcji
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-green-400"><path d="M20 6 9 17l-5-5"></path></svg> Wszystkie funkcje Solo
                         </li>
                         <li class="flex items-center gap-3 text-sm text-white/70">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Powiadomienia e-mail
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-green-400"><path d="M20 6 9 17l-5-5"></path></svg> Rok aktualizacji gratis
                         </li>
                         <li class="flex items-center gap-3 text-sm text-white/70">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Podstawowe raporty
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-green-400"><path d="M20 6 9 17l-5-5"></path></svg> Priorytetowe wsparcie
                         </li>
                     </ul>
-                    <button class="w-full py-3 rounded-lg border border-white/20 text-white font-medium hover:bg-white hover:text-black transition-colors">
-                        Załóż konto
+                    <button class="w-full py-3 rounded-lg bg-green-500 text-black font-medium hover:bg-green-400 transition-colors">
+                        Zamów teraz
                     </button>
+                    <div class="mt-4 text-center text-xs text-white/40">Zostało 23 miejsc</div>
                 </div>
 
-                <!-- Pro (Featured) -->
+                <!-- Solo (Featured) -->
                 <div class="flex flex-col z-10 bg-[#121212] border-[#6366F1] border rounded-2xl pt-8 pr-8 pb-8 pl-8 relative shadow-[0_0_30px_rgba(99,102,241,0.1)] scale-105">
                     <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide shadow-lg bg-[#6366F1]">
-                        Polecane
+                        Najpopularniejszy
                     </div>
                     <div class="mb-4">
-                        <h3 class="text-xl font-medium text-white">Pro</h3>
-                        <p class="text-white/50 text-sm mt-1">Pełna automatyzacja.</p>
+                        <h3 class="text-xl font-medium text-white">Solo</h3>
+                        <p class="text-white/50 text-sm mt-1">Dla jednego użytkownika.</p>
                     </div>
-                    <div class="mb-8 flex items-baseline gap-2">
-                        <span class="text-4xl font-semibold text-white">19 zł</span>
-                        <span class="text-white/40 text-lg">/ mc</span>
+                    <div class="mb-2 flex items-baseline gap-2">
+                        <span class="text-4xl font-semibold text-white">399 zł</span>
+                        <span class="text-white/40 text-sm">jednorazowo</span>
                     </div>
+                    <p class="text-[#6366F1] text-xs mb-6">+ rok obsługi w cenie</p>
                     <ul class="flex-1 mb-8 space-y-4">
                         <li class="flex items-center gap-3 text-sm text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Nielimitowane subskrypcje
                         </li>
-                        <li class="flex gap-3 text-sm text-white gap-x-3 gap-y-3 items-center" style="">Synchronizacja z gmail<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-[16px] h-[16px]" data-icon-replaced="true" style="width: 16px; height: 16px; color: rgb(99, 102, 241);"><path d="M20 6 9 17l-5-5" class=""></path></svg></li>
                         <li class="flex items-center gap-3 text-sm text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5" class=""></path></svg> Eksport do Excel/CSV
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Automatyczne powiadomienia
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Raporty i analityka
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Eksport CSV/Excel
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Poprawki i aktualizacje
                         </li>
                     </ul>
                     <button class="w-full py-3 rounded-lg text-white font-medium hover:bg-[#4f46e5] transition-colors shadow-lg shadow-indigo-900/20 bg-[#6366F1]">
-                        Rozpocznij próbny okres
+                        Kup dostęp
                     </button>
-                    <div class="mt-4 text-center text-xs text-white/50">7 dni za darmo, anuluj kiedy chcesz</div>
+                    <div class="mt-4 text-center text-xs text-white/50">14-dniowa gwarancja zwrotu</div>
                 </div>
 
                 <!-- Family -->
                 <div class="glass-panel p-8 rounded-2xl border border-white/10 flex flex-col hover:border-white/20 transition-all">
                     <div class="mb-4">
                         <h3 class="text-xl font-medium text-white">Rodzina</h3>
-                        <p class="text-white/50 text-sm mt-1">Dla par i domowników.</p>
+                        <p class="text-white/50 text-sm mt-1">Do 5 użytkowników.</p>
                     </div>
-                    <div class="mb-8 flex items-baseline gap-2">
-                        <span class="text-4xl font-semibold text-white">49 zł</span>
-                        <span class="text-white/40 text-lg">/ mc</span>
+                    <div class="mb-2 flex items-baseline gap-2">
+                        <span class="text-4xl font-semibold text-white">599 zł</span>
+                        <span class="text-white/40 text-sm">jednorazowo</span>
                     </div>
+                    <p class="text-[#6366F1] text-xs mb-6">+ rok obsługi w cenie</p>
                     <ul class="space-y-4 mb-8 flex-1">
                         <li class="flex items-center gap-3 text-sm text-white/70">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Do 5 użytkowników
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Wszystko z planu Solo
                         </li>
                         <li class="flex items-center gap-3 text-sm text-white/70">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Współdzielone wydatki
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> 5 osobnych kont
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Współdzielone subskrypcje
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white/70">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Rozliczenia "kto ile wisi"
                         </li>
                         <li class="flex items-center gap-3 text-sm text-white/70">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-4 h-4 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg> Priorytetowe wsparcie
                         </li>
                     </ul>
                     <button class="w-full py-3 rounded-lg border border-white/20 text-white font-medium hover:bg-white hover:text-black transition-colors">
-                        Wybierz plan
+                        Kup dostęp
                     </button>
+                    <div class="mt-4 text-center text-xs text-white/40">Idealne dla par i rodzin</div>
                 </div>
 
+            </div>
+
+            <!-- Trust badges -->
+            <div class="mt-16 flex flex-wrap justify-center gap-8 text-white/40 text-sm">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#6366F1]"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                    14-dniowy zwrot
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#6366F1]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path></svg>
+                    Szyfrowanie AES-256
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#6366F1]"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                    Rok aktualizacji
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#6366F1]"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Wsparcie techniczne
+                </div>
             </div>
         </div>
     </section>
