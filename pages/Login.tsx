@@ -1,18 +1,38 @@
 
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { auth, db } from '../firebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Check, Shield } from 'lucide-react';
+
+const PLAN_NAMES: Record<string, string> = {
+  earlybird: 'Early Bird',
+  solo: 'Solo',
+  family: 'Rodzina'
+};
 
 const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
+  const [searchParams] = useSearchParams();
+  const planFromUrl = searchParams.get('plan');
+  const emailFromUrl = searchParams.get('email');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Pobierz dane z checkout
+  useEffect(() => {
+    if (isRegister) {
+      const checkoutEmail = emailFromUrl || sessionStorage.getItem('checkout_email');
+      if (checkoutEmail) {
+        setEmail(decodeURIComponent(checkoutEmail));
+      }
+    }
+  }, [isRegister, emailFromUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,13 +58,19 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
 
         // Utworzenie dokumentu w Firestore
         if (db) {
+          const plan = planFromUrl || sessionStorage.getItem('checkout_plan') || 'free';
           await setDoc(doc(db, 'users', user.uid), {
             uid: user.uid,
             email: user.email,
             displayName: name,
             currency: 'PLN',
+            plan: plan,
+            planPurchasedAt: plan !== 'free' ? Date.now() : null,
             createdAt: Date.now()
           });
+          // Wyczyść dane checkout
+          sessionStorage.removeItem('checkout_email');
+          sessionStorage.removeItem('checkout_plan');
         }
 
       } else {
@@ -84,9 +110,21 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
         </div>
 
         <div className="bg-surface border border-slate-700 rounded-2xl p-8 shadow-xl">
-          <h2 className="text-2xl font-semibold mb-6 text-center">
+          <h2 className="text-2xl font-semibold mb-2 text-center">
             {isRegister ? 'Utwórz konto' : 'Zaloguj się'}
           </h2>
+
+          {/* Info o planie z checkout */}
+          {isRegister && planFromUrl && PLAN_NAMES[planFromUrl] && (
+            <div className="mb-6 p-3 bg-primary/10 border border-primary/20 rounded-lg">
+              <div className="flex items-center justify-center gap-2 text-sm">
+                <Check className="w-4 h-4 text-primary" />
+                <span className="text-slate-300">
+                  Wybrany plan: <strong className="text-primary">{PLAN_NAMES[planFromUrl]}</strong>
+                </span>
+              </div>
+            </div>
+          )}
 
           {error && (
             <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start space-x-2 text-red-400 text-sm">

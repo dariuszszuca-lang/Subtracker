@@ -10,6 +10,7 @@ import Stats from './pages/Stats';
 import Settings from './pages/Settings';
 import Calendar from './pages/Calendar';
 import Sharing from './pages/Sharing';
+import Checkout from './pages/Checkout';
 
 // Landing Page for non-authenticated users
 const Landing: React.FC = () => {
@@ -84,6 +85,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Login isRegister />} />
+      <Route path="/checkout/:planId" element={<Checkout />} />
       
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
