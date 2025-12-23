@@ -9,6 +9,7 @@ import AddEditSubscription from './pages/AddEditSubscription';
 import Stats from './pages/Stats';
 import Settings from './pages/Settings';
 import Calendar from './pages/Calendar';
+import Sharing from './pages/Sharing';
 
 // Landing Page for non-authenticated users
 const Landing: React.FC = () => {
@@ -91,6 +92,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/subscriptions/:id" element={<AddEditSubscription />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/calendar" element={<Calendar />} />
+        <Route path="/sharing" element={<Sharing />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>

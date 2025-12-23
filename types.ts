@@ -86,3 +86,71 @@ export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
   trialEndReminder: true,
   priceChangeAlert: true,
 };
+
+// ============================================
+// WSPÓŁDZIELENIE KOSZTÓW (Family Plan)
+// ============================================
+
+export type SplitType = 'equal' | 'percentage' | 'fixed';
+export type MemberRole = 'owner' | 'admin' | 'member';
+export type InviteStatus = 'pending' | 'accepted' | 'declined';
+
+export interface FamilyMember {
+  userId: string;
+  email: string;
+  displayName: string;
+  role: MemberRole;
+  joinedAt: number;
+  avatar?: string;
+}
+
+export interface FamilyInvite {
+  id: string;
+  groupId: string;
+  email: string;
+  invitedBy: string;
+  status: InviteStatus;
+  createdAt: number;
+  expiresAt: number;
+}
+
+export interface CostSplit {
+  memberId: string;
+  memberName: string;
+  type: SplitType;
+  value: number; // dla equal: 1, percentage: 0-100, fixed: kwota
+  calculatedAmount: number; // obliczona kwota do zapłaty
+}
+
+export interface SharedSubscription {
+  subscriptionId: string;
+  subscriptionName: string;
+  totalAmount: number;
+  currency: Currency;
+  cycle: Cycle;
+  splitType: SplitType;
+  splits: CostSplit[];
+  paidBy: string; // memberId osoby która płaci
+  addedBy: string;
+  addedAt: number;
+}
+
+export interface FamilyGroup {
+  id: string;
+  name: string;
+  ownerId: string;
+  members: FamilyMember[];
+  sharedSubscriptions: SharedSubscription[];
+  invites: FamilyInvite[];
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface FamilyGroupSummary {
+  groupId: string;
+  groupName: string;
+  totalMonthly: number;
+  myShare: number;
+  membersCount: number;
+  subscriptionsCount: number;
+}

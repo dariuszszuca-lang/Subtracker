@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, CreditCard, PieChart, Settings, LogOut, Menu, X, Plus, Calendar } from 'lucide-react';
+import { LayoutDashboard, CreditCard, PieChart, Settings, LogOut, Menu, X, Plus, Calendar, Users } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -12,6 +12,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: CreditCard, label: 'Subskrypcje', path: '/subscriptions' },
     { icon: Calendar, label: 'Kalendarz', path: '/calendar' },
+    { icon: Users, label: 'Współdzielenie', path: '/sharing' },
     { icon: PieChart, label: 'Statystyki', path: '/stats' },
     { icon: Settings, label: 'Ustawienia', path: '/settings' },
   ];
