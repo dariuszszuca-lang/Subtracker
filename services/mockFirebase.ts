@@ -1,4 +1,4 @@
-import { User, Subscription } from '../types';
+import { User, Subscription, NotificationSettings, DEFAULT_NOTIFICATION_SETTINGS } from '../types';
 
 // Mock delay to simulate network
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -43,6 +43,7 @@ export const mockAuth = {
       email,
       displayName: name,
       currency: 'PLN',
+      notifications: DEFAULT_NOTIFICATION_SETTINGS,
       createdAt: Date.now()
     };
     
@@ -130,4 +131,22 @@ const seedData = (userId: string) => {
   }));
 
   setStorage(SUBS_KEY, [...existingSubs, ...newSubs]);
+};
+
+// Funkcje do zarządzania ustawieniami powiadomień (mock)
+export const mockGetUserNotificationSettings = async (userId: string): Promise<NotificationSettings> => {
+  await delay(200);
+  const users = getStorage<User>(USERS_KEY);
+  const user = users.find(u => u.uid === userId);
+  return user?.notifications || DEFAULT_NOTIFICATION_SETTINGS;
+};
+
+export const mockUpdateUserNotificationSettings = async (userId: string, settings: NotificationSettings): Promise<void> => {
+  await delay(300);
+  const users = getStorage<User>(USERS_KEY);
+  const index = users.findIndex(u => u.uid === userId);
+  if (index !== -1) {
+    users[index].notifications = settings;
+    setStorage(USERS_KEY, users);
+  }
 };

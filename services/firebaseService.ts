@@ -11,7 +11,7 @@ import {
   doc, 
   getDoc 
 } from 'firebase/firestore';
-import { Subscription } from '../types';
+import { Subscription, NotificationSettings, DEFAULT_NOTIFICATION_SETTINGS } from '../types';
 
 export const dbService = {
   getSubscriptions: async (userId: string): Promise<Subscription[]> => {
@@ -60,11 +60,45 @@ export const dbService = {
   getSubscription: async (userId: string, subId: string): Promise<Subscription | null> => {
     const subRef = doc(db, `users/${userId}/subscriptions`, subId);
     const docSnap = await getDoc(subRef);
-    
+
     if (docSnap.exists()) {
       return { id: docSnap.id, ...docSnap.data() } as Subscription;
     } else {
       return null;
     }
+  }
+};
+
+// Funkcje do zarządzania ustawieniami powiadomień
+export const getUserNotificationSettings = async (userId: string): Promise<NotificationSettings | null> => {
+  try {
+    const userRef = doc(db, 'users', userId);
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists() && docSnap.data().notifications) {
+      return docSnap.data().notifications as NotificationSettings;
+    }
+    return DEFAULT_NOTIFICATION_SETTINGS;
+  } catch (error) {
+    console.error("Błąd pobierania ustawień powiadomień:", error);
+    return DEFAULT_NOTIFICATION_SETTINGS;
+  }
+};
+
+export const updateUserNotificationSettings = async (userId: string, settings: NotificationSettings): Promise<void> => {
+  try {
+    const userRef = doc(db, 'users', userId);
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      await updateDoc(userRef, { notifications: settings });
+    } else {
+      // Jeśli dokument nie istnieje, tworzymy go z ustawieniami
+      const { setDoc } = await import('firebase/firestore');
+      await setDoc(userRef, { notifications: settings }, { merge: true });
+    }
+  } catch (error) {
+    console.error("Błąd zapisu ustawień powiadomień:", error);
+    throw error;
   }
 };

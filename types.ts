@@ -3,11 +3,22 @@ export type Status = 'active' | 'cancelled' | 'trial' | 'paused';
 export type Category = 'entertainment' | 'work' | 'health' | 'education' | 'cloud' | 'domains' | 'other';
 export type Currency = 'PLN' | 'USD' | 'EUR';
 
+export interface NotificationSettings {
+  enabled: boolean;
+  emailEnabled: boolean;
+  pushEnabled: boolean;
+  daysBefore: number; // 1, 3, 7
+  weeklyDigest: boolean;
+  trialEndReminder: boolean;
+  priceChangeAlert: boolean;
+}
+
 export interface User {
   uid: string;
   email: string;
   displayName: string;
   currency: Currency;
+  notifications: NotificationSettings;
   createdAt: number;
 }
 
@@ -65,3 +76,13 @@ export const CYCLES: { value: Cycle; label: string }[] = [
   { value: 'quarterly', label: 'Kwartalnie' },
   { value: 'yearly', label: 'Rocznie' },
 ];
+
+export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
+  enabled: true,
+  emailEnabled: true,
+  pushEnabled: false,
+  daysBefore: 3,
+  weeklyDigest: true,
+  trialEndReminder: true,
+  priceChangeAlert: true,
+};
