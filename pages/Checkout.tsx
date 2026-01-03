@@ -18,14 +18,14 @@ const PLANS: Record<string, PlanInfo> = {
   earlybird: {
     id: 'earlybird',
     name: 'Early Bird',
-    price: 299,
-    originalPrice: 399,
+    price: 49,
+    originalPrice: 79,
     description: 'Limitowana oferta dla pierwszych 50 osób',
-    badge: 'Oszczędzasz 100 zł',
+    badge: 'Oszczędzasz 30 zł',
     badgeColor: 'bg-green-500/20 text-green-400',
     features: [
       'Wszystkie funkcje planu Solo',
-      'Rok aktualizacji gratis',
+      'Dożywotnie aktualizacje',
       'Priorytetowe wsparcie',
       'Dożywotni dostęp'
     ]
@@ -33,7 +33,7 @@ const PLANS: Record<string, PlanInfo> = {
   solo: {
     id: 'solo',
     name: 'Solo',
-    price: 399,
+    price: 79,
     description: 'Pełna wersja dla jednego użytkownika',
     features: [
       'Nielimitowane subskrypcje',
@@ -41,13 +41,13 @@ const PLANS: Record<string, PlanInfo> = {
       'Kalendarz płatności',
       'Raporty i analityka',
       'Eksport CSV/Excel',
-      'Rok aktualizacji i wsparcia'
+      'Dożywotni dostęp'
     ]
   },
   family: {
     id: 'family',
     name: 'Rodzina',
-    price: 599,
+    price: 129,
     description: 'Do 5 użytkowników ze współdzieleniem',
     features: [
       'Wszystko z planu Solo',
@@ -55,7 +55,7 @@ const PLANS: Record<string, PlanInfo> = {
       'Współdzielone subskrypcje',
       'Rozliczenia "kto ile wisi"',
       'Priorytetowe wsparcie',
-      'Rok aktualizacji w cenie'
+      'Dożywotni dostęp'
     ]
   }
 };
