@@ -2,6 +2,13 @@ export type Cycle = 'weekly' | 'monthly' | 'quarterly' | 'yearly';
 export type Status = 'active' | 'cancelled' | 'trial' | 'paused';
 export type Category = 'entertainment' | 'work' | 'health' | 'education' | 'cloud' | 'domains' | 'other';
 export type Currency = 'PLN' | 'USD' | 'EUR';
+export type Plan = 'free' | 'earlybird' | 'solo' | 'family' | 'lifetime';
+
+// VIP users - get lifetime access for free
+export const VIP_EMAILS = [
+  'darek@ai-team.pl',        // Darek - owner
+  'krystian.nagaba@gmail.com' // Krystian - gift
+];
 
 export interface NotificationSettings {
   enabled: boolean;
@@ -18,7 +25,9 @@ export interface User {
   email: string;
   displayName: string;
   currency: Currency;
-  notifications: NotificationSettings;
+  plan?: Plan;
+  planPurchasedAt?: number;
+  notifications?: NotificationSettings;
   createdAt: number;
 }
 

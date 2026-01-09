@@ -5,11 +5,13 @@ import { auth, db } from '../firebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { AlertCircle, Check, Shield } from 'lucide-react';
+import { VIP_EMAILS } from '../types';
 
 const PLAN_NAMES: Record<string, string> = {
   earlybird: 'Early Bird',
   solo: 'Solo',
-  family: 'Rodzina'
+  family: 'Rodzina',
+  lifetime: 'Lifetime VIP'
 };
 
 const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
@@ -58,7 +60,10 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
 
         // Utworzenie dokumentu w Firestore
         if (db) {
-          const plan = planFromUrl || sessionStorage.getItem('checkout_plan') || 'free';
+          // Check if VIP email - gets lifetime access
+          const isVIP = VIP_EMAILS.includes(email.toLowerCase());
+          const plan = isVIP ? 'lifetime' : (planFromUrl || sessionStorage.getItem('checkout_plan') || 'free');
+
           await setDoc(doc(db, 'users', user.uid), {
             uid: user.uid,
             email: user.email,
