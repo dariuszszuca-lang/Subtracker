@@ -78,8 +78,8 @@ background: #6366F1;
 color: white;
 }
 
-/* React app root - fullscreen when has content */
-#root:not(:empty) {
+/* React app root - fullscreen only when has app-active class */
+#root.app-active {
     position: fixed;
     inset: 0;
     z-index: 9999;

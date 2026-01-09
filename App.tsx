@@ -1,5 +1,5 @@
-import React from 'react';
-import { HashRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { HashRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
 import Login from './pages/Login';
@@ -15,6 +15,26 @@ import Checkout from './pages/Checkout';
 // Landing Page - rendered by static HTML in index.html
 // This component returns null because landing is handled by static HTML
 const Landing: React.FC = () => null;
+
+// Hook to toggle fullscreen app mode based on route
+const useAppActiveClass = () => {
+  const location = useLocation();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (!root) return;
+
+    // Show React app fullscreen for all routes except landing (when not logged in)
+    const isLanding = location.pathname === '/' && !user;
+
+    if (isLanding) {
+      root.classList.remove('app-active');
+    } else {
+      root.classList.add('app-active');
+    }
+  }, [location.pathname, user]);
+};
 
 // Guard wrapper
 const ProtectedRoute: React.FC = () => {
@@ -33,7 +53,10 @@ const ProtectedRoute: React.FC = () => {
 
 const AppRoutes: React.FC = () => {
   const { user } = useAuth();
-  
+
+  // Toggle fullscreen mode based on current route
+  useAppActiveClass();
+
   return (
     <Routes>
       <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
