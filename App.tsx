@@ -25,13 +25,15 @@ const useAppActiveClass = () => {
     const root = document.getElementById('root');
     if (!root) return;
 
-    // Show React app fullscreen for all routes except landing (when not logged in)
-    const isLanding = location.pathname === '/' && !user;
+    // Define actual React app routes that should show fullscreen
+    const appRoutes = ['/login', '/register', '/checkout', '/dashboard', '/subscriptions', '/stats', '/calendar', '/sharing', '/settings'];
+    const isAppRoute = appRoutes.some(route => location.pathname.startsWith(route));
 
-    if (isLanding) {
-      root.classList.remove('app-active');
-    } else {
+    // Show React app fullscreen only for actual app routes or when user is logged in
+    if (isAppRoute || user) {
       root.classList.add('app-active');
+    } else {
+      root.classList.remove('app-active');
     }
   }, [location.pathname, user]);
 };
