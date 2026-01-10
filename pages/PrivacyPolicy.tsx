@@ -36,14 +36,14 @@ const PrivacyPolicy: React.FC = () => {
               Administratorem Twoich danych osobowych jest:
             </p>
             <div className="bg-surface border border-white/10 rounded-xl p-4 space-y-2">
-              <p className="font-medium text-white">SubTracker</p>
-              <div className="flex items-center gap-2 text-sm">
-                <Mail className="w-4 h-4 text-[#6366F1]" />
-                <span>kontakt@subtracker.pl</span>
-              </div>
+              <p className="font-medium text-white">Dariusz Szuca</p>
               <div className="flex items-center gap-2 text-sm">
                 <MapPin className="w-4 h-4 text-[#6366F1]" />
-                <span>Polska</span>
+                <span>ul. Pułaskiego 7, 81-368 Sopot</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <Mail className="w-4 h-4 text-[#6366F1]" />
+                <a href="mailto:darek@ai-team.pl" className="text-[#6366F1] hover:underline">darek@ai-team.pl</a>
               </div>
             </div>
           </section>
@@ -109,7 +109,7 @@ const PrivacyPolicy: React.FC = () => {
               <li><strong className="text-white">Wycofania zgody</strong> w dowolnym momencie</li>
             </ul>
             <p className="mt-4">
-              Aby skorzystać z tych praw, napisz do nas: <a href="mailto:kontakt@subtracker.pl" className="text-[#6366F1] hover:underline">kontakt@subtracker.pl</a>
+              Aby skorzystać z tych praw, napisz do nas: <a href="mailto:darek@ai-team.pl" className="text-[#6366F1] hover:underline">darek@ai-team.pl</a>
             </p>
           </section>
 
@@ -165,10 +165,15 @@ const PrivacyPolicy: React.FC = () => {
             <p className="mb-4">
               W razie pytań lub wątpliwości dotyczących prywatności, skontaktuj się z nami:
             </p>
-            <div className="bg-surface border border-white/10 rounded-xl p-4">
-              <p className="flex items-center gap-2">
+            <div className="bg-surface border border-white/10 rounded-xl p-4 space-y-2">
+              <p className="font-medium text-white">Dariusz Szuca</p>
+              <p className="flex items-center gap-2 text-sm">
+                <MapPin className="w-4 h-4 text-[#6366F1]" />
+                ul. Pułaskiego 7, 81-368 Sopot
+              </p>
+              <p className="flex items-center gap-2 text-sm">
                 <Mail className="w-4 h-4 text-[#6366F1]" />
-                <a href="mailto:kontakt@subtracker.pl" className="text-[#6366F1] hover:underline">kontakt@subtracker.pl</a>
+                <a href="mailto:darek@ai-team.pl" className="text-[#6366F1] hover:underline">darek@ai-team.pl</a>
               </p>
             </div>
             <p className="mt-4">

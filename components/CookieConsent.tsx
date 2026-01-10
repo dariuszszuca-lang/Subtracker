@@ -195,8 +195,8 @@ const CookieConsent: React.FC = () => {
               Polityka prywatności
             </a>
             <span>•</span>
-            <a href="mailto:kontakt@subtracker.pl" className="hover:text-white transition-colors">
-              Kontakt: kontakt@subtracker.pl
+            <a href="mailto:darek@ai-team.pl" className="hover:text-white transition-colors">
+              Kontakt: darek@ai-team.pl
             </a>
           </div>
         </div>
