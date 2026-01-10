@@ -6,8 +6,9 @@ export type Plan = 'free' | 'earlybird' | 'solo' | 'family' | 'lifetime';
 
 // VIP users - get lifetime access for free
 export const VIP_EMAILS = [
-  'darek@ai-team.pl',        // Darek - owner
-  'krystian.nagaba@gmail.com' // Krystian - gift
+  'darek@ai-team.pl',           // Darek - owner
+  'krystian.nagaba@gmail.com',  // Krystian - gift
+  'andrzejewski.martin@gmail.com' // Martin - gift
 ];
 
 export interface NotificationSettings {
