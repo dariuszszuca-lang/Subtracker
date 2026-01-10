@@ -6,6 +6,7 @@ import { dbService } from '../services/firebaseService';
 import { CATEGORIES, CYCLES, STATUSES, Subscription } from '../types';
 import { ArrowLeft, Trash2, Loader2, Search, ExternalLink } from 'lucide-react';
 import { searchServices, ServiceTemplate, getServiceByName } from '../data/services';
+import { calculateNextPayment } from '../utils/helpers';
 
 const AddEditSubscription: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -106,10 +107,20 @@ const AddEditSubscription: React.FC = () => {
     setLoading(true);
 
     try {
+      // Oblicz nextPayment na podstawie startDate i cycle
+      const nextPaymentDate = calculateNextPayment(
+        formData.startDate || new Date().toISOString().split('T')[0],
+        formData.cycle || 'monthly'
+      );
+      const dataToSave = {
+        ...formData,
+        nextPayment: nextPaymentDate.toISOString().split('T')[0]
+      };
+
       if (isEdit && id) {
-        await dbService.updateSubscription(user.uid, id, formData);
+        await dbService.updateSubscription(user.uid, id, dataToSave);
       } else {
-        await dbService.addSubscription(user.uid, formData as any);
+        await dbService.addSubscription(user.uid, dataToSave as any);
       }
       navigate('/subscriptions');
     } catch (error) {

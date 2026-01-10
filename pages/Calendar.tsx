@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { dbService } from '../services/firebaseService';
 import { Subscription, CATEGORIES } from '../types';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Download, CreditCard } from 'lucide-react';
-import { formatCurrency } from '../utils/helpers';
+import { formatCurrency, calculateNextPayment } from '../utils/helpers';
 
 const DAYS_PL = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'];
 const MONTHS_PL = [
@@ -23,7 +23,14 @@ const Calendar: React.FC = () => {
       if (user?.uid) {
         setLoading(true);
         const subs = await dbService.getSubscriptions(user.uid);
-        setSubscriptions(subs.filter(s => s.status === 'active' || s.status === 'trial'));
+        // Recalculate nextPayment for all subscriptions
+        const updated = subs
+          .filter(s => s.status === 'active' || s.status === 'trial')
+          .map(s => ({
+            ...s,
+            nextPayment: calculateNextPayment(s.startDate, s.cycle).toISOString().split('T')[0]
+          }));
+        setSubscriptions(updated);
         setLoading(false);
       }
     };

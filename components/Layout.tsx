@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, CreditCard, PieChart, Settings, LogOut, Menu, X, Plus, Calendar, Users } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import PaymentAlerts from './PaymentAlerts';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, logout } = useAuth();
@@ -100,6 +101,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         {/* Content Area */}
         <div className="flex-1 overflow-auto p-4 md:p-8 scroll-smooth">
           <div className="max-w-6xl mx-auto pb-20 lg:pb-0">
+            <PaymentAlerts />
             {children}
           </div>
         </div>

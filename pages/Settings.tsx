@@ -67,13 +67,6 @@ const Settings: React.FC = () => {
               <p className="text-xs text-slate-500 mt-1">Zmiana waluty dostępna wkrótce.</p>
            </div>
 
-           <div>
-              <label className="block text-sm font-medium text-slate-400 mb-2">Motyw</label>
-              <div className="flex space-x-4">
-                 <button className="px-4 py-2 rounded-lg bg-primary/20 text-primary border border-primary/50">Ciemny</button>
-                 <button className="px-4 py-2 rounded-lg bg-background border border-slate-700 text-slate-400" disabled>Jasny</button>
-              </div>
-           </div>
         </div>
       </div>
 
