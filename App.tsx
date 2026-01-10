@@ -11,6 +11,8 @@ import Settings from './pages/Settings';
 import Calendar from './pages/Calendar';
 import Sharing from './pages/Sharing';
 import Checkout from './pages/Checkout';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import CookieConsent from './components/CookieConsent';
 
 // Landing Page - rendered by static HTML in index.html
 // This component returns null because landing is handled by static HTML
@@ -26,7 +28,7 @@ const useAppActiveClass = () => {
     if (!root) return;
 
     // Define actual React app routes that should show fullscreen
-    const appRoutes = ['/login', '/register', '/checkout', '/dashboard', '/subscriptions', '/stats', '/calendar', '/sharing', '/settings'];
+    const appRoutes = ['/login', '/register', '/checkout', '/dashboard', '/subscriptions', '/stats', '/calendar', '/sharing', '/settings', '/privacy'];
     const isAppRoute = appRoutes.some(route => location.pathname.startsWith(route));
 
     // Show React app fullscreen only for actual app routes or when user is logged in
@@ -65,6 +67,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Login isRegister />} />
       <Route path="/checkout/:planId" element={<Checkout />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
       
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
@@ -85,6 +88,7 @@ const App: React.FC = () => {
     <AuthProvider>
       <HashRouter>
         <AppRoutes />
+        <CookieConsent />
       </HashRouter>
     </AuthProvider>
   );
