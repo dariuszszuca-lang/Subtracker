@@ -257,6 +257,70 @@ color: white;
         </div>
     </header>
 
+    <!-- JAK TO DZIAŁA - Sekcja wyjaśniająca -->
+    <section class="bg-[#050505] border-white/5 border-t py-16 sm:py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+            <!-- Dla kogo -->
+            <div class="text-center mb-12 sm:mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#6366F1]/10 border border-[#6366F1]/30 text-[#6366F1] text-xs font-medium mb-4">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    Dla osób prywatnych i freelancerów
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-medium text-white mb-4">Jak działa SubTracker?</h2>
+                <p class="text-white/60 max-w-2xl mx-auto text-sm sm:text-base">
+                    Żadnego podpinania konta bankowego. Żadnego Excela. <br class="hidden sm:block">
+                    Ty dodajesz swoje subskrypcje — my pilnujemy terminów i kosztów.
+                </p>
+            </div>
+
+            <!-- 3 kroki -->
+            <div class="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+                <!-- Krok 1 -->
+                <div class="text-center">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#6366F1]/10 border border-[#6366F1]/30 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl sm:text-2xl font-bold text-[#6366F1]">1</span>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-medium text-white mb-2">Dodaj subskrypcję</h3>
+                    <p class="text-white/50 text-sm">Netflix, Spotify, Claude, domeny — wpisz nazwę, kwotę i datę płatności.</p>
+                </div>
+                <!-- Krok 2 -->
+                <div class="text-center">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#6366F1]/10 border border-[#6366F1]/30 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl sm:text-2xl font-bold text-[#6366F1]">2</span>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-medium text-white mb-2">Śledź wydatki</h3>
+                    <p class="text-white/50 text-sm">Zobacz ile płacisz miesięcznie i rocznie. Wykresy, kategorie, kalendarz płatności.</p>
+                </div>
+                <!-- Krok 3 -->
+                <div class="text-center">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#6366F1]/10 border border-[#6366F1]/30 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl sm:text-2xl font-bold text-[#6366F1]">3</span>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-medium text-white mb-2">Dostań przypomnienie</h3>
+                    <p class="text-white/50 text-sm">E-mail lub push 1-7 dni przed płatnością. Koniec z niespodziankami na koncie.</p>
+                </div>
+            </div>
+
+            <!-- Ważne info -->
+            <div class="bg-[#0A0A0A] border border-white/10 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0">
+                        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-medium mb-2">Bezpieczeństwo przede wszystkim</h4>
+                        <p class="text-white/50 text-sm leading-relaxed">
+                            <strong class="text-white/70">Nie łączymy się z Twoim bankiem.</strong> Nie mamy dostępu do Twoich kart ani transakcji.
+                            Ty sam decydujesz co dodajesz do aplikacji. Dane szyfrowane AES-256, przechowywane w Firebase.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Problem / Solution Section -->
     <section class="overflow-hidden bg-[#050505] border-white/5 border-t pt-16 sm:pt-24 pb-16 sm:pb-24 relative" id="how-it-works">
     <style>
@@ -501,6 +565,63 @@ color: white;
                     </div>
                 </div>
             </div>
+
+            <!-- Feature 5: Współdzielenie kosztów (NEW!) -->
+            <div class="md:col-span-2 group relative bg-gradient-to-r from-[#6366F1]/10 to-[#0A0A0A] border border-[#6366F1]/30 rounded-2xl sm:rounded-3xl p-5 sm:p-8 hover:bg-[#6366F1]/5 transition-colors overflow-hidden">
+                <div class="flex flex-col md:flex-row gap-6 md:gap-12 items-start md:items-center">
+                    <div class="flex-1">
+                        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#6366F1]/20 text-[#6366F1] text-[10px] sm:text-xs font-medium mb-3">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            NOWOŚĆ
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-medium text-white tracking-tight mb-3 sm:mb-4">Współdzielenie kosztów</h3>
+                        <p class="text-white/60 font-light text-sm sm:text-base mb-4">
+                            Dziel Netflix, Spotify czy iCloud z rodziną lub znajomymi. Każdy widzi ile ma zapłacić.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-white/60 text-sm">
+                                <svg class="w-4 h-4 text-[#6366F1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Twórz grupy rodzinne (do 5 osób)
+                            </li>
+                            <li class="flex items-center gap-2 text-white/60 text-sm">
+                                <svg class="w-4 h-4 text-[#6366F1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Dziel po równo lub własne proporcje
+                            </li>
+                            <li class="flex items-center gap-2 text-white/60 text-sm">
+                                <svg class="w-4 h-4 text-[#6366F1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Śledź kto ile oszczędza
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-auto flex-shrink-0">
+                        <div class="bg-black rounded-xl border border-white/10 p-4 sm:p-6 min-w-[200px] sm:min-w-[280px]">
+                            <div class="text-[9px] sm:text-[10px] text-white/40 uppercase tracking-widest mb-3">Przykład: Netflix Premium</div>
+                            <div class="text-center mb-4">
+                                <div class="text-2xl sm:text-3xl font-bold text-white">60 <span class="text-lg text-white/50">zł/mies</span></div>
+                                <div class="text-xs text-white/40">÷ 4 osoby</div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-center">
+                                <div class="bg-white/5 rounded-lg p-2">
+                                    <div class="text-lg font-bold text-[#6366F1]">15 zł</div>
+                                    <div class="text-[9px] text-white/40">Ty</div>
+                                </div>
+                                <div class="bg-white/5 rounded-lg p-2">
+                                    <div class="text-lg font-bold text-white/60">15 zł</div>
+                                    <div class="text-[9px] text-white/40">Partner</div>
+                                </div>
+                                <div class="bg-white/5 rounded-lg p-2">
+                                    <div class="text-lg font-bold text-white/60">15 zł</div>
+                                    <div class="text-[9px] text-white/40">Mama</div>
+                                </div>
+                                <div class="bg-white/5 rounded-lg p-2">
+                                    <div class="text-lg font-bold text-white/60">15 zł</div>
+                                    <div class="text-[9px] text-white/40">Tata</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -547,8 +668,8 @@ color: white;
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-3.5 h-3.5 text-[#6366F1]"><path d="M20 6 9 17l-5-5"></path></svg>
                             </div>
                             <div class="">
-                                <h4 class="text-white font-medium text-lg">Automatyczne wykrywanie</h4>
-                                <p class="text-white/50 font-light text-sm mt-1">Połącz swoje konto bankowe, a my automatycznie znajdziemy płatności cykliczne.</p>
+                                <h4 class="text-white font-medium text-lg">Proste dodawanie</h4>
+                                <p class="text-white/50 font-light text-sm mt-1">Sam dodajesz subskrypcje które chcesz śledzić. Bez podpinania banku, bez dostępu do kart.</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
