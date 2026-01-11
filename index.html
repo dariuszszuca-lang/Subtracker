@@ -321,6 +321,112 @@ color: white;
         </div>
     </section>
 
+    <!-- GALERIA SCREENSHOTÓW -->
+    <section class="bg-[#0a0a0a] py-16 sm:py-24 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-4xl font-medium text-white mb-4">Zobacz jak wygląda w środku</h2>
+                <p class="text-white/50 max-w-xl mx-auto">Przejrzysty interfejs, ciemny motyw, wszystko pod ręką.</p>
+            </div>
+
+            <!-- Screenshot Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="showScreen('dashboard')" id="btn-dashboard" class="screen-tab px-4 py-2 rounded-lg text-sm font-medium bg-[#6366F1]/20 text-[#6366F1] border border-[#6366F1]/30">
+                    Dashboard
+                </button>
+                <button onclick="showScreen('subscriptions')" id="btn-subscriptions" class="screen-tab px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/60 border border-white/10 hover:bg-white/10">
+                    Subskrypcje
+                </button>
+                <button onclick="showScreen('calendar')" id="btn-calendar" class="screen-tab px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/60 border border-white/10 hover:bg-white/10">
+                    Kalendarz
+                </button>
+                <button onclick="showScreen('stats')" id="btn-stats" class="screen-tab px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/60 border border-white/10 hover:bg-white/10">
+                    Statystyki
+                </button>
+                <button onclick="showScreen('sharing')" id="btn-sharing" class="screen-tab px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/60 border border-white/10 hover:bg-white/10">
+                    Współdzielenie
+                </button>
+                <button onclick="showScreen('settings')" id="btn-settings" class="screen-tab px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-white/60 border border-white/10 hover:bg-white/10">
+                    Ustawienia
+                </button>
+            </div>
+
+            <!-- Screenshot Display -->
+            <div class="relative max-w-5xl mx-auto">
+                <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-[#0f0f12]">
+
+                    <!-- Dashboard -->
+                    <div id="screen-dashboard" class="screen-content">
+                        <img src="assets/screenshots/dashboard.png" alt="SubTracker Dashboard" class="w-full"
+                             onerror="this.parentElement.innerHTML='<div class=\'bg-[#0f0f12] p-8 min-h-[400px] flex items-center justify-center\'><div class=\'text-center\'><div class=\'text-6xl mb-4\'>📊</div><div class=\'text-white/40\'>Screenshot: Dashboard</div><div class=\'text-white/20 text-sm mt-2\'>Podsumowanie wydatków, najbliższe płatności</div></div></div>'">
+                    </div>
+
+                    <!-- Subskrypcje -->
+                    <div id="screen-subscriptions" class="screen-content hidden">
+                        <img src="assets/screenshots/subscriptions.png" alt="Lista subskrypcji" class="w-full"
+                             onerror="this.parentElement.innerHTML='<div class=\'bg-[#0f0f12] p-8 min-h-[400px] flex items-center justify-center\'><div class=\'text-center\'><div class=\'text-6xl mb-4\'>📋</div><div class=\'text-white/40\'>Screenshot: Lista subskrypcji</div><div class=\'text-white/20 text-sm mt-2\'>Wszystkie Twoje subskrypcje w jednym miejscu</div></div></div>'">
+                    </div>
+
+                    <!-- Kalendarz -->
+                    <div id="screen-calendar" class="screen-content hidden">
+                        <img src="assets/screenshots/calendar.png" alt="Kalendarz płatności" class="w-full"
+                             onerror="this.parentElement.innerHTML='<div class=\'bg-[#0f0f12] p-8 min-h-[400px] flex items-center justify-center\'><div class=\'text-center\'><div class=\'text-6xl mb-4\'>📅</div><div class=\'text-white/40\'>Screenshot: Kalendarz płatności</div><div class=\'text-white/20 text-sm mt-2\'>Widok miesięczny nadchodzących płatności</div></div></div>'">
+                    </div>
+
+                    <!-- Statystyki -->
+                    <div id="screen-stats" class="screen-content hidden">
+                        <img src="assets/screenshots/stats.png" alt="Statystyki i analityka" class="w-full"
+                             onerror="this.parentElement.innerHTML='<div class=\'bg-[#0f0f12] p-8 min-h-[400px] flex items-center justify-center\'><div class=\'text-center\'><div class=\'text-6xl mb-4\'>📈</div><div class=\'text-white/40\'>Screenshot: Statystyki</div><div class=\'text-white/20 text-sm mt-2\'>Wykresy, trendy, top wydatki</div></div></div>'">
+                    </div>
+
+                    <!-- Współdzielenie -->
+                    <div id="screen-sharing" class="screen-content hidden">
+                        <img src="assets/screenshots/sharing.png" alt="Współdzielenie kosztów" class="w-full"
+                             onerror="this.parentElement.innerHTML='<div class=\'bg-[#0f0f12] p-8 min-h-[400px] flex items-center justify-center\'><div class=\'text-center\'><div class=\'text-6xl mb-4\'>👥</div><div class=\'text-white/40\'>Screenshot: Współdzielenie</div><div class=\'text-white/20 text-sm mt-2\'>Dziel koszty z rodziną i znajomymi</div></div></div>'">
+                    </div>
+
+                    <!-- Ustawienia -->
+                    <div id="screen-settings" class="screen-content hidden">
+                        <img src="assets/screenshots/settings.png" alt="Ustawienia i powiadomienia" class="w-full"
+                             onerror="this.parentElement.innerHTML='<div class=\'bg-[#0f0f12] p-8 min-h-[400px] flex items-center justify-center\'><div class=\'text-center\'><div class=\'text-6xl mb-4\'>⚙️</div><div class=\'text-white/40\'>Screenshot: Ustawienia</div><div class=\'text-white/20 text-sm mt-2\'>Powiadomienia email, push, przypomnienia</div></div></div>'">
+                    </div>
+                </div>
+
+                <!-- Caption -->
+                <div id="screen-caption" class="text-center mt-4 text-white/40 text-sm">
+                    Główny dashboard z podsumowaniem wydatków i najbliższymi płatnościami
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const captions = {
+            dashboard: 'Główny dashboard z podsumowaniem wydatków i najbliższymi płatnościami',
+            subscriptions: 'Lista wszystkich subskrypcji z wyszukiwaniem i filtrami',
+            calendar: 'Kalendarz płatności - widok miesięczny z sumą wydatków',
+            stats: 'Statystyki i analityka - wykresy, trendy, top 5 najdroższych',
+            sharing: 'Współdzielenie kosztów - twórz grupy i dziel subskrypcje',
+            settings: 'Ustawienia powiadomień - email, push, przypomnienia przed płatnością'
+        };
+
+        function showScreen(name) {
+            // Hide all screens
+            document.querySelectorAll('.screen-content').forEach(el => el.classList.add('hidden'));
+            // Show selected
+            document.getElementById('screen-' + name).classList.remove('hidden');
+            // Update tabs
+            document.querySelectorAll('.screen-tab').forEach(el => {
+                el.classList.remove('bg-[#6366F1]/20', 'text-[#6366F1]', 'border-[#6366F1]/30');
+                el.classList.add('bg-white/5', 'text-white/60', 'border-white/10');
+            });
+            document.getElementById('btn-' + name).classList.remove('bg-white/5', 'text-white/60', 'border-white/10');
+            document.getElementById('btn-' + name).classList.add('bg-[#6366F1]/20', 'text-[#6366F1]', 'border-[#6366F1]/30');
+            // Update caption
+            document.getElementById('screen-caption').textContent = captions[name];
+        }
+    </script>
+
     <!-- Problem / Solution Section -->
     <section class="overflow-hidden bg-[#050505] border-white/5 border-t pt-16 sm:pt-24 pb-16 sm:pb-24 relative" id="how-it-works">
     <style>
