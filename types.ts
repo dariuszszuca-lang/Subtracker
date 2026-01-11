@@ -8,7 +8,8 @@ export type Plan = 'free' | 'earlybird' | 'solo' | 'family' | 'lifetime';
 export const VIP_EMAILS = [
   'darek@ai-team.pl',           // Darek - owner
   'krystian.nagaba@gmail.com',  // Krystian - gift
-  'andrzejewski.martin@gmail.com' // Martin - gift
+  'andrzejewski.martin@gmail.com', // Martin - gift
+  'pola@aignostic.pl'           // Pola - gift
 ];
 
 export interface NotificationSettings {
