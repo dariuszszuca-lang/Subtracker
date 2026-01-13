@@ -11,7 +11,8 @@ export const VIP_EMAILS = [
   'andrzejewski.martin@gmail.com', // Martin - gift
   'pola@aignostic.pl',          // Pola - gift
   'marcin.jaszcz.mj@gmail.com', // Marcin - gift
-  'firma.piotr.iwanski@gmail.com' // Piotr - gift
+  'firma.piotr.iwanski@gmail.com', // Piotr - gift
+  'kamilkaziu@gmail.com'        // Kamil - gift
 ];
 
 export interface NotificationSettings {
