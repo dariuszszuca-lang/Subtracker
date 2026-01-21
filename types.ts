@@ -1,6 +1,6 @@
 export type Cycle = 'weekly' | 'monthly' | 'quarterly' | 'yearly';
 export type Status = 'active' | 'cancelled' | 'trial' | 'paused';
-export type Category = 'entertainment' | 'work' | 'health' | 'education' | 'cloud' | 'domains' | 'other';
+export type Category = 'entertainment' | 'work' | 'health' | 'education' | 'cloud' | 'domains' | 'telco' | 'other';
 export type Currency = 'PLN' | 'USD' | 'EUR';
 export type Plan = 'free' | 'earlybird' | 'solo' | 'family' | 'lifetime';
 
@@ -77,6 +77,7 @@ export const CATEGORIES: { value: Category; label: string; color: string }[] = [
   { value: 'education', label: 'Edukacja', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
   { value: 'cloud', label: 'Chmura/SaaS', color: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30' },
   { value: 'domains', label: 'Domeny', color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30' },
+  { value: 'telco', label: 'Telekomunikacja', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
   { value: 'other', label: 'Inne', color: 'bg-slate-500/20 text-slate-400 border-slate-500/30' },
 ];
 

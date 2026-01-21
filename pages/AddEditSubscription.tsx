@@ -306,6 +306,8 @@ const AddEditSubscription: React.FC = () => {
                       type="date"
                       name="startDate"
                       required
+                      min="2000-01-01"
+                      max="2099-12-31"
                       value={formData.startDate}
                       onChange={handleChange}
                       className="w-full bg-background border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-primary"

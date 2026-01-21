@@ -21,6 +21,7 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +50,12 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
 
     try {
       if (isRegister) {
+        // Walidacja potwierdzenia hasła
+        if (password !== confirmPassword) {
+          setError('Hasła nie są identyczne.');
+          setIsLoading(false);
+          return;
+        }
         // Rejestracja
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
@@ -174,8 +181,24 @@ const Login: React.FC<{ isRegister?: boolean }> = ({ isRegister = false }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-background border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                 placeholder="••••••••"
+                minLength={6}
               />
             </div>
+
+            {isRegister && (
+              <div>
+                <label className="block text-sm font-medium text-slate-400 mb-1">Potwierdź hasło</label>
+                <input
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full bg-background border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                  placeholder="••••••••"
+                  minLength={6}
+                />
+              </div>
+            )}
 
             <button
               type="submit"

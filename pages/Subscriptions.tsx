@@ -5,7 +5,7 @@ import { dbService } from '../services/firebaseService';
 import { Subscription, CATEGORIES, STATUSES } from '../types';
 import { calculateNextPayment, formatCurrency, getDaysUntil, formatDate } from '../utils/helpers';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Plus, Filter, Grid, List, MoreVertical } from 'lucide-react';
+import { Search, Plus, Filter, Grid, List, MoreVertical, Upload, X, FileText, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Subscriptions: React.FC = () => {
   const { user } = useAuth();
@@ -16,6 +16,9 @@ const Subscriptions: React.FC = () => {
   const [search, setSearch] = useState('');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [sortMethod, setSortMethod] = useState<'date' | 'amount' | 'name'>('date');
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importStatus, setImportStatus] = useState<{ success: number; errors: string[] } | null>(null);
+  const [isImporting, setIsImporting] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -54,14 +57,105 @@ const Subscriptions: React.FC = () => {
   const getCategoryColor = (cat: string) => CATEGORIES.find(c => c.value === cat)?.color || 'bg-slate-500/20 text-slate-400';
   const getStatusColor = (status: string) => STATUSES.find(s => s.value === status)?.color || 'bg-slate-500';
 
+  // Import CSV
+  const handleImportCSV = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    setIsImporting(true);
+    setImportStatus(null);
+    const errors: string[] = [];
+    let successCount = 0;
+
+    try {
+      const text = await file.text();
+      const lines = text.split('\n').filter(line => line.trim());
+
+      // Pomiń header
+      const dataLines = lines.slice(1);
+
+      for (let i = 0; i < dataLines.length; i++) {
+        try {
+          const line = dataLines[i];
+          // Parsuj CSV (obsługa cudzysłowów)
+          const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)?.map(v => v.replace(/^"|"$/g, '').trim()) || [];
+
+          if (values.length < 4) {
+            errors.push(`Wiersz ${i + 2}: Za mało kolumn`);
+            continue;
+          }
+
+          const [name, amountStr, currency, cycle, category, status, startDate] = values;
+          const amount = parseFloat(amountStr.replace(',', '.'));
+
+          if (!name || isNaN(amount)) {
+            errors.push(`Wiersz ${i + 2}: Nieprawidłowa nazwa lub kwota`);
+            continue;
+          }
+
+          // Mapuj wartości
+          const validCurrency = ['PLN', 'USD', 'EUR'].includes(currency?.toUpperCase()) ? currency.toUpperCase() : 'PLN';
+          const validCycle = ['weekly', 'monthly', 'quarterly', 'yearly'].includes(cycle?.toLowerCase()) ? cycle.toLowerCase() : 'monthly';
+          const validCategory = CATEGORIES.find(c => c.value === category?.toLowerCase() || c.label.toLowerCase() === category?.toLowerCase())?.value || 'other';
+          const validStatus = STATUSES.find(s => s.value === status?.toLowerCase() || s.label.toLowerCase() === status?.toLowerCase())?.value || 'active';
+          const validStartDate = startDate && !isNaN(Date.parse(startDate)) ? new Date(startDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+
+          await dbService.addSubscription(user.uid, {
+            name,
+            amount,
+            currency: validCurrency as any,
+            cycle: validCycle as any,
+            category: validCategory as any,
+            status: validStatus as any,
+            startDate: validStartDate,
+            billingDay: new Date(validStartDate).getDate(),
+            notes: '',
+            url: ''
+          });
+          successCount++;
+        } catch (err) {
+          errors.push(`Wiersz ${i + 2}: ${err}`);
+        }
+      }
+
+      setImportStatus({ success: successCount, errors });
+
+      // Odśwież listę
+      if (successCount > 0) {
+        const data = await dbService.getSubscriptions(user.uid);
+        const processed = data.map(s => ({
+          ...s,
+          nextPayment: calculateNextPayment(s.startDate, s.cycle).toISOString()
+        }));
+        setSubs(processed);
+        setFilteredSubs(processed);
+      }
+    } catch (err) {
+      errors.push(`Błąd odczytu pliku: ${err}`);
+      setImportStatus({ success: 0, errors });
+    } finally {
+      setIsImporting(false);
+      e.target.value = ''; // Reset input
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <h2 className="text-2xl font-bold">Subskrypcje</h2>
-        <Link to="/subscriptions/add" className="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors">
-          <Plus size={18} />
-          <span>Dodaj nową</span>
-        </Link>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowImportModal(true)}
+            className="bg-surface border border-slate-700 hover:bg-slate-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors"
+          >
+            <Upload size={18} />
+            <span>Importuj CSV</span>
+          </button>
+          <Link to="/subscriptions/add" className="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors">
+            <Plus size={18} />
+            <span>Dodaj nową</span>
+          </Link>
+        </div>
       </div>
 
       {/* Filters Toolbar */}
@@ -202,6 +296,84 @@ const Subscriptions: React.FC = () => {
       {filteredSubs.length === 0 && (
         <div className="text-center py-12 text-slate-500">
           <p>Nie znaleziono subskrypcji spełniających kryteria.</p>
+        </div>
+      )}
+
+      {/* Modal Import CSV */}
+      {showImportModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => !isImporting && setShowImportModal(false)}>
+          <div className="bg-surface border border-slate-700 rounded-2xl w-full max-w-lg" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-4 border-b border-slate-700">
+              <h3 className="text-lg font-bold flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                Importuj z CSV
+              </h3>
+              <button onClick={() => !isImporting && setShowImportModal(false)} className="p-1 hover:bg-slate-700 rounded-lg" disabled={isImporting}>
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-4 space-y-4">
+              <div className="bg-background rounded-lg p-4 text-sm">
+                <p className="font-medium mb-2">Format pliku CSV:</p>
+                <code className="text-xs text-slate-400 block bg-slate-800 p-2 rounded overflow-x-auto">
+                  Nazwa,Kwota,Waluta,Cykl,Kategoria,Status,Data startu
+                </code>
+                <p className="text-xs text-slate-500 mt-2">Przykład:</p>
+                <code className="text-xs text-slate-400 block bg-slate-800 p-2 rounded overflow-x-auto">
+                  Netflix,43,PLN,monthly,entertainment,active,2024-01-15
+                </code>
+                <p className="text-xs text-slate-500 mt-3">
+                  <strong>Waluta:</strong> PLN, USD, EUR<br/>
+                  <strong>Cykl:</strong> weekly, monthly, quarterly, yearly<br/>
+                  <strong>Kategoria:</strong> entertainment, work, health, education, cloud, domains, telco, other<br/>
+                  <strong>Status:</strong> active, cancelled, trial, paused
+                </p>
+              </div>
+
+              {importStatus && (
+                <div className={`p-3 rounded-lg ${importStatus.errors.length === 0 ? 'bg-green-500/10 border border-green-500/20' : 'bg-yellow-500/10 border border-yellow-500/20'}`}>
+                  <div className="flex items-center gap-2">
+                    {importStatus.errors.length === 0 ? (
+                      <CheckCircle className="w-5 h-5 text-green-400" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 text-yellow-400" />
+                    )}
+                    <span className="font-medium">
+                      Zaimportowano: {importStatus.success} subskrypcji
+                    </span>
+                  </div>
+                  {importStatus.errors.length > 0 && (
+                    <div className="mt-2 text-xs text-slate-400 max-h-20 overflow-y-auto">
+                      {importStatus.errors.map((err, i) => <div key={i}>{err}</div>)}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <label className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-xl cursor-pointer transition-colors ${isImporting ? 'border-slate-600 bg-slate-800/50' : 'border-slate-600 hover:border-primary hover:bg-primary/5'}`}>
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  {isImporting ? (
+                    <>
+                      <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin mb-2"></div>
+                      <p className="text-sm text-slate-400">Importowanie...</p>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-8 h-8 text-slate-400 mb-2" />
+                      <p className="text-sm text-slate-400">Kliknij lub przeciągnij plik CSV</p>
+                    </>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  accept=".csv"
+                  className="hidden"
+                  onChange={handleImportCSV}
+                  disabled={isImporting}
+                />
+              </label>
+            </div>
+          </div>
         </div>
       )}
     </div>

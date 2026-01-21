@@ -8,7 +8,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
   BarChart, Bar, XAxis, YAxis, LineChart, Line, CartesianGrid, Area, AreaChart
 } from 'recharts';
-import { Download, TrendingUp, TrendingDown, Calendar, DollarSign, PieChart as PieIcon, BarChart3 } from 'lucide-react';
+import { Download, TrendingUp, TrendingDown, Calendar, DollarSign, PieChart as PieIcon, BarChart3, X } from 'lucide-react';
 
 const MONTHS_PL = ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'];
 
@@ -16,6 +16,7 @@ const Stats: React.FC = () => {
   const { user } = useAuth();
   const [subs, setSubs] = useState<Subscription[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -48,7 +49,7 @@ const Stats: React.FC = () => {
 
   // Kolory
   const COLORS: Record<string, string> = {
-    pink: '#ec4899', blue: '#3b82f6', green: '#22c55e', yellow: '#eab308', cyan: '#06b6d4', indigo: '#6366f1', slate: '#64748b'
+    pink: '#ec4899', blue: '#3b82f6', green: '#22c55e', yellow: '#eab308', cyan: '#06b6d4', indigo: '#6366f1', orange: '#f97316', slate: '#64748b'
   };
 
   // Top 5 najdroższych
@@ -102,6 +103,21 @@ const Stats: React.FC = () => {
       dailyCost: totalMonthly / 30,
     };
   }, [activeSubs, totalMonthly, categoryData]);
+
+  // Subskrypcje w wybranej kategorii (drill-down)
+  const selectedCategorySubs = useMemo(() => {
+    if (!selectedCategory) return [];
+    const categoryValue = CATEGORIES.find(c => c.label === selectedCategory)?.value;
+    return activeSubs
+      .filter(s => s.category === categoryValue)
+      .sort((a, b) => convertToPLN(getMonthlyCost(b.amount, b.cycle), b.currency) - convertToPLN(getMonthlyCost(a.amount, a.cycle), a.currency));
+  }, [selectedCategory, activeSubs]);
+
+  const handlePieClick = (data: any) => {
+    if (data && data.name) {
+      setSelectedCategory(data.name);
+    }
+  };
 
   // Eksport do CSV
   const exportToCSV = () => {
@@ -232,7 +248,8 @@ const Stats: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Kategorie - Pie Chart */}
         <div className="bg-surface border border-slate-700/50 rounded-2xl p-6">
-          <h3 className="text-lg font-bold mb-4">Wydatki wg kategorii</h3>
+          <h3 className="text-lg font-bold mb-2">Wydatki wg kategorii</h3>
+          <p className="text-xs text-slate-500 mb-4">Kliknij w kategorię, aby zobaczyć szczegóły</p>
           {categoryData.length > 0 ? (
             <div className="w-full h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -245,6 +262,8 @@ const Stats: React.FC = () => {
                     outerRadius={80}
                     paddingAngle={5}
                     dataKey="value"
+                    onClick={handlePieClick}
+                    style={{ cursor: 'pointer' }}
                   >
                     {categoryData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[entry.color] || '#cbd5e1'} stroke="rgba(0,0,0,0)" />
@@ -254,7 +273,7 @@ const Stats: React.FC = () => {
                     contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#f8fafc' }}
                     formatter={(value) => formatCurrency(Number(value), 'PLN')}
                   />
-                  <Legend />
+                  <Legend onClick={(e) => handlePieClick({ name: e.value })} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -331,6 +350,46 @@ const Stats: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal Drill-down */}
+      {selectedCategory && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setSelectedCategory(null)}>
+          <div className="bg-surface border border-slate-700 rounded-2xl w-full max-w-lg max-h-[80vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-4 border-b border-slate-700">
+              <h3 className="text-lg font-bold">{selectedCategory}</h3>
+              <button onClick={() => setSelectedCategory(null)} className="p-1 hover:bg-slate-700 rounded-lg">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-4 overflow-y-auto max-h-[60vh]">
+              {selectedCategorySubs.length > 0 ? (
+                <div className="space-y-3">
+                  {selectedCategorySubs.map(sub => (
+                    <div key={sub.id} className="flex items-center justify-between p-3 bg-background rounded-lg border border-slate-700/50">
+                      <div>
+                        <div className="font-medium">{sub.name}</div>
+                        <div className="text-xs text-slate-500">{sub.cycle === 'monthly' ? 'miesięcznie' : sub.cycle === 'yearly' ? 'rocznie' : sub.cycle}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-medium text-primary">{formatCurrency(convertToPLN(getMonthlyCost(sub.amount, sub.cycle), sub.currency), 'PLN')}</div>
+                        <div className="text-xs text-slate-500">/miesiąc</div>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="pt-3 border-t border-slate-700 flex justify-between">
+                    <span className="text-slate-400">Suma:</span>
+                    <span className="font-bold text-primary">
+                      {formatCurrency(selectedCategorySubs.reduce((acc, sub) => acc + convertToPLN(getMonthlyCost(sub.amount, sub.cycle), sub.currency), 0), 'PLN')}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center text-slate-500 py-8">Brak subskrypcji w tej kategorii</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -144,6 +144,22 @@ export const POPULAR_SERVICES: ServiceTemplate[] = [
   { name: 'Kindle Unlimited', logo: '📱', category: 'education', defaultAmount: 39.99, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'amazon.com/kindle-unlimited' },
   { name: 'Blinkist', logo: '📖', category: 'education', defaultAmount: 12.99, defaultCurrency: 'EUR', defaultCycle: 'monthly', website: 'blinkist.com' },
 
+  // === TELEKOMUNIKACJA ===
+  { name: 'Orange Flex', logo: '📱', category: 'telco', defaultAmount: 35, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'orange.pl/flex' },
+  { name: 'Mobile Vikings', logo: '📱', category: 'telco', defaultAmount: 25, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'mobilevikings.pl' },
+  { name: 'Play', logo: '📱', category: 'telco', defaultAmount: 45, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'play.pl' },
+  { name: 'Plus', logo: '📱', category: 'telco', defaultAmount: 50, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'plus.pl' },
+  { name: 'T-Mobile', logo: '📱', category: 'telco', defaultAmount: 55, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 't-mobile.pl' },
+  { name: 'Heyah', logo: '📱', category: 'telco', defaultAmount: 20, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'heyah.pl' },
+  { name: 'Nju Mobile', logo: '📱', category: 'telco', defaultAmount: 29, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'njumobile.pl' },
+  { name: 'Lajt Mobile', logo: '📱', category: 'telco', defaultAmount: 19, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'lajtmobile.pl' },
+  { name: 'a]2 mobile', logo: '📱', category: 'telco', defaultAmount: 25, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'a2mobile.pl' },
+  { name: 'Vectra Internet', logo: '🌐', category: 'telco', defaultAmount: 75, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'vectra.pl' },
+  { name: 'UPC Internet', logo: '🌐', category: 'telco', defaultAmount: 80, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'upc.pl' },
+  { name: 'Orange Internet', logo: '🌐', category: 'telco', defaultAmount: 70, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'orange.pl' },
+  { name: 'Netia', logo: '🌐', category: 'telco', defaultAmount: 65, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'netia.pl' },
+  { name: 'Inea', logo: '🌐', category: 'telco', defaultAmount: 60, defaultCurrency: 'PLN', defaultCycle: 'monthly', website: 'inea.pl' },
+
   // === INNE ===
   { name: 'Amazon Prime', logo: '📦', category: 'other', defaultAmount: 49, defaultCurrency: 'PLN', defaultCycle: 'yearly', website: 'amazon.pl' },
   { name: 'Allegro Smart', logo: '🛒', category: 'other', defaultAmount: 59, defaultCurrency: 'PLN', defaultCycle: 'yearly', website: 'allegro.pl' },
